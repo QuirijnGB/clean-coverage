@@ -1,16 +1,18 @@
 name: clean_coverage
 description: A tool to clean up your coverage lcov files
-version: 0.0.1
+version: 0.0.2
 homepage: https://github.com/QuirijnGB/clean-coverage
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
 
+executables:
+  clean_coverage:
+
 dependencies:
   glob: ^2.0.0
   args: ^2.0.0
   cli_util: ^0.3.0
-
 
 dev_dependencies:
   lint: ^1.5.1
