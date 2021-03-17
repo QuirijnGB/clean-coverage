@@ -1,6 +1,6 @@
 name: clean_coverage
-description: A tool to clean up your coverage lcov files
-version: 0.0.2
+description: A tool to clean up your coverage lcov files. Remove unwanted files from your coverage report using globs
+version: 0.0.3
 homepage: https://github.com/QuirijnGB/clean-coverage
 
 environment:
