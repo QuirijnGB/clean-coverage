@@ -1,3 +1,7 @@
+## [0.0.3] - 18-03-2021
+
+* Print out all the files that have been excluded
+
 ## [0.0.2] - 17-03-2021
 
 * Define executable

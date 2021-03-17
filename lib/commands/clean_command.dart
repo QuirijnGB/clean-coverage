@@ -59,7 +59,12 @@ class CleanCommand extends Command {
     final covFile = argResults!.rest.first;
     logger.stdout('From: $covFile');
 
-    cleanCoverageFile(globs, covFile);
+    final removedFiles = await cleanCoverageFile(globs, covFile);
+
+    logger.stdout('Removed files:');
+    for (final path in removedFiles) {
+      logger.stdout('    $path');
+    }
 
     logger.stdout('\nAll clean');
   }
@@ -70,13 +75,17 @@ class CleanCommand extends Command {
     return f.readAsLines();
   }
 
-  File cleanCoverageFile(List<Glob> globs, String pathToCoverageFile) {
+  Future<List<String>> cleanCoverageFile(
+      List<Glob> globs, String pathToCoverageFile) async {
     final f = File(pathToCoverageFile);
+
+    final List<String> removedFiles = [];
 
     bool keep = true;
 
     bool keeper(String line) {
       if (line.startsWith('SF:') && matchesGlob(globs, line)) {
+        removedFiles.add(line.substring(3));
         keep = false;
       } else {
         if (!keep && line == 'end_of_record') {
@@ -87,11 +96,10 @@ class CleanCommand extends Command {
       return keep;
     }
 
-    f
-        .readAsLines()
-        .then((lines) => f.writeAsString(lines.where(keeper).join('\n')));
+    final lines = await f.readAsLines();
+    await f.writeAsString(lines.where(keeper).join('\n'));
 
-    return f;
+    return removedFiles;
   }
 
   bool matchesGlob(List<Glob> globs, String line) =>
