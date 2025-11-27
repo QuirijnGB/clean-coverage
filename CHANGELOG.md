@@ -1,3 +1,7 @@
+## [0.0.4] - 27-11-2025
+* Update dependencies
+* Clean up analysis options
+
 ## [0.0.3] - 18-03-2021
 
 * Print out all the files that have been excluded
